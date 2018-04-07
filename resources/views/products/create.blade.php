@@ -14,8 +14,7 @@
                             'fish' => __('silvex.products.create.category.fish'),
                             'fish_products' => __('silvex.products.create.category.fish_products'),
                             'accessories' => __('silvex.products.create.category.accessories')
-                           ],
-                           ['placeholder' => 'Description...'])}}
+                           ])}}
         </div>
         <div>
             {{Form::label('description', __('silvex.products.create.description'))}}

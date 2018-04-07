@@ -49,7 +49,7 @@ class ProductsController extends Controller
         $product->timesBought = 0;
         $product->save();
 
-        return redirect('/products')->with('success', 'Product added.');
+        return redirect('/products')->with('success', __('products.create.success'));
     }
 
     /**
@@ -71,7 +71,8 @@ class ProductsController extends Controller
      */
     public function edit($id)
     {
-        //
+        $product = Product::find($id);
+        return view('products.edit')->with('product', $product);
     }
 
     /**
@@ -83,7 +84,18 @@ class ProductsController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $this->validate($request, [
+            'title' => 'required',
+            'description' => 'required'
+        ]);
+
+        $product = Product::find($id);
+        $product->title = $request->input('title');
+        $product->category = $request->input('category');
+        $product->description = $request->input('description');
+        $product->save();
+
+        return redirect('/products')->with('success', __('silvex.products.edit.success'));
     }
 
     /**
@@ -94,6 +106,8 @@ class ProductsController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $product = Product::find($id);
+        $product->delete();
+        return redirect('/products')->with('success', __('silvex.products.delete.success'));
     }
 }
