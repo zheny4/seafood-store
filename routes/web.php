@@ -44,10 +44,6 @@ Route::get('/delivery', function () {
     return view('delivery');
 });
 
-Route::get('/login', function () {
-    return view('login');
-});
-
 Route::get('/register', function () {
     return view('register');
 });
@@ -63,3 +59,7 @@ Route::get('/search/{word}', function ($word) {
 
 // POST
 
+
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');
