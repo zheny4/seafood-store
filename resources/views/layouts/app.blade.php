@@ -63,9 +63,9 @@
         <ul>
             <li><a href="/">@lang('silvex.home')</a></li>
             <li><a href="/products/create">@lang('silvex.products.create')</a></li>
-            <li><a href="/products">@lang('silvex.products.fish')</a></li>
-            <li><a href="/products">@lang('silvex.products.fish_products')</a></li>
-            <li><a href="/products">@lang('silvex.products.accessories')</a></li>
+            <li><a href="/categoryFish">@lang('silvex.products.fish')</a></li>
+            <li><a href="/categoryFishProducts">@lang('silvex.products.fish_products')</a></li>
+            <li><a href="/categoryAccessories">@lang('silvex.products.accessories')</a></li>
         </ul>
     </div>
     <div>

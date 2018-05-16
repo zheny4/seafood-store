@@ -2,12 +2,21 @@
 
 namespace App\Http\Controllers;
 
+use App\Category;
 use Illuminate\Http\Request;
 use App\Product;
+use Illuminate\Support\Facades\Log;
 
 
 class ProductsController extends Controller
 {
+
+    function toModel($product)
+    {
+        $cat = Category::where('id', $product->category)->get()[0];
+        $product->category = $cat->name;
+        return $product;
+    }
     /**
      * Display a listing of the resource.
      *
@@ -39,17 +48,21 @@ class ProductsController extends Controller
     {
         $this->validate($request, [
             'title' => 'required',
+            'image_url' => 'required',
             'description' => 'required'
         ]);
 
+        $cat = Category::where('name', $request->input('category'))->get()[0];
+        $onSale = $request->input('on_sale') ? 1 : 0;
         $product = new Product;
         $product->title = $request->input('title');
-        $product->category = $request->input('category');
+        $product->category = $cat->id;
+        $product->image_url = $request->input('image_url');
+        $product->on_sale = $onSale;
         $product->description = $request->input('description');
-        $product->timesBought = 0;
         $product->save();
 
-        return redirect('/products')->with('success', __('products.create.success'));
+        return redirect('/products')->with('success', __('silvex.products.create.success'));
     }
 
     /**
@@ -60,7 +73,10 @@ class ProductsController extends Controller
      */
     public function show($id)
     {
-        return view('products.show')->with('product', Product::find($id));
+        $prod = Product::find($id);
+        $cat = Category::where('id', $prod->category)->get()[0];
+        $prod->category = $cat->name;
+        return view('products.show')->with('product', $prod);
     }
 
     /**
@@ -72,6 +88,8 @@ class ProductsController extends Controller
     public function edit($id)
     {
         $product = Product::find($id);
+        $cat = Category::where('id', $product->category)->get()[0];
+        $product->category = $cat->name;
         return view('products.edit')->with('product', $product);
     }
 
@@ -89,9 +107,13 @@ class ProductsController extends Controller
             'description' => 'required'
         ]);
 
+        $cat = Category::where('name', $request->input('category'))->get()[0];
+        $onSale = $request->input('on_sale') ? 1 : 0;
         $product = Product::find($id);
         $product->title = $request->input('title');
-        $product->category = $request->input('category');
+        $product->category = $cat->id;
+        $product->image_url = $request->input('image_url');
+        $product->on_sale = $onSale;
         $product->description = $request->input('description');
         $product->save();
 
@@ -109,5 +131,41 @@ class ProductsController extends Controller
         $product = Product::find($id);
         $product->delete();
         return redirect('/products')->with('success', __('silvex.products.delete.success'));
+    }
+
+    public function fishProducts()
+    {
+        return $this->getCategorizedProducts("fish");
+    }
+
+    public function categoryFish()
+    {
+        return $this->getCategorizedProducts("fish");
+    }
+
+    public function categoryFishProducts()
+    {
+        return $this->getCategorizedProducts("fish_products");
+    }
+
+    public function categoryAccessories()
+    {
+        return $this->getCategorizedProducts("accessories");
+    }
+
+    private function getCategorizedProducts($category)
+    {
+        Log::info("cat1:".$category);
+        $products = Product::all()
+            ->map(function ($product) {
+                $cat = Category::where('id', $product->category)->get()[0];
+                $product->category = $cat->name;
+                return $product;
+            })
+            ->filter(function ($product) use ($category) {
+                $res = strcmp($category, $product->category);
+                return $res == 0;
+            });
+        return view('products.index')->with('products', $products);
     }
 }

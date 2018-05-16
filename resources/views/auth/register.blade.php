@@ -48,6 +48,27 @@
             </div>
 
             <div>
+                <label for="birth_year">
+                    {{ __('Birth year') }}
+                </label>
+                <div>
+                    <input id="birth_year"
+                           name="birth_year"
+                           type="number"
+                           min="1900"
+                           max="2099"
+                           step="1"
+                           required
+                           value="{{ old('birth_year') or 2000 }}" />
+                    @if ($errors->has('birth_year'))
+                        <span class="invalid-feedback">
+                            <strong>{{ $errors->first('birth_year') }}</strong>
+                        </span>
+                    @endif
+                </div>
+            </div>
+
+            <div>
                 <label for="password">
                     {{ __('Password') }}
                 </label>

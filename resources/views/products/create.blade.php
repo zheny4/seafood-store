@@ -17,6 +17,14 @@
                            ])}}
         </div>
         <div>
+            {{Form::label('image_url', __('silvex.products.create.image_url'))}}
+            {{Form::text('image_url', '', ['placeholder' => __('silvex.products.create.image_url')])}}
+        </div>
+        <div>
+            {{Form::label('on_sale', __('silvex.products.create.on_sale'))}}
+            {{Form::checkBox('on_sale', 1)}}
+        </div>
+        <div>
             {{Form::label('description', __('silvex.products.create.description'))}}
             {{Form::textarea('description', '', ['placeholder' => __('silvex.products.create.description.placeholder')])}}
         </div>

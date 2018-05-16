@@ -52,6 +52,7 @@ class RegisterController extends Controller
             'name' => 'required|string|max:255',
             'email' => 'required|string|email|max:255|unique:users',
             'password' => 'required|string|min:6|confirmed',
+            'birth_year' => 'required|numeric|between:1900,2018'
         ]);
     }
 
@@ -68,7 +69,8 @@ class RegisterController extends Controller
             'email' => $data['email'],
             // Register all users as clients by default, allow admin to change role after.
             'role' => 'client',
-            'password' => Hash::make($data['password']),
+            'birth_year' => $data['birth_year'],
+            'password' => Hash::make($data['password'])
         ]);
     }
 }

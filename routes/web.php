@@ -15,6 +15,9 @@
 Route::get('/', 'PagesController@index');
 Route::get('/about', 'PagesController@about');
 Route::resource('products', 'ProductsController');
+Route::get('/categoryFish', 'ProductsController@categoryFish')->name('categoryFish');
+Route::get('/categoryFishProducts', 'ProductsController@categoryFishProducts')->name('categoryFishProducts');
+Route::get('/categoryAccessories', 'ProductsController@categoryAccessories')->name('categoryAccessories');
 
 Route::get('/promo', function () {
     return view('promo');
