@@ -3,8 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Category;
-use Illuminate\Http\Request;
 use App\Product;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 
 
@@ -78,6 +78,7 @@ class ProductsController extends Controller
         $prod = Product::find($id);
         $cat = Category::where('id', $prod->category)->get()[0];
         $prod->category = $cat->name;
+        $prod->price = number_format((float)$prod->price, 2, '.', '');
         return view('products.show')->with('product', $prod);
     }
 
@@ -158,9 +159,18 @@ class ProductsController extends Controller
         return $this->getCategorizedProducts("accessories");
     }
 
-    private function getAllProductsWithCat()
+    private function getAllProductsWithFixedPrice()
     {
         return Product::all()
+            ->map(function ($product) {
+                $product->price = number_format((float)$product->price, 2, '.', '');
+                return $product;
+            });
+    }
+
+    private function getAllProductsWithCat()
+    {
+        return $this->getAllProductsWithFixedPrice()
             ->map(function ($product) {
                 $cat = Category::where('id', $product->category)->get()[0];
                 $product->category = $cat->name;

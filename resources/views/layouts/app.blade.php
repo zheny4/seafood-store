@@ -62,7 +62,9 @@
         Menu 2
         <ul>
             <li><a href="/">@lang('silvex.home')</a></li>
-            <li><a href="/products/create">@lang('silvex.products.create')</a></li>
+            @if(Auth::check() and Auth::user()->role==='admin')
+                <li><a href="/products/create">@lang('silvex.products.create')</a></li>
+            @endif
             <li><a href="/categoryFish">@lang('silvex.products.fish')</a></li>
             <li><a href="/categoryFishProducts">@lang('silvex.products.fish_products')</a></li>
             <li><a href="/categoryAccessories">@lang('silvex.products.accessories')</a></li>

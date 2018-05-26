@@ -7,7 +7,9 @@
             <div>
                 <h3>
                     <a href="/products/{{$product->id}}">{{$product->title}}</a>
-                    {{ $product->on_sale == 1 ? __('silvex.products.create.on_sale.title') : '' }}
+                    <span style="color: #e2000b;">
+                        {{ $product->on_sale == 1 ? __('silvex.products.create.on_sale.title') : '' }}
+                    </span>
                 </h3>
                 <img src='{{ $product->image_url }}' height="100px">
                 <h3>@lang('silvex.products.price'): {{$product->price}}</h3>
