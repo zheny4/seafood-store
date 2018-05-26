@@ -20,6 +20,7 @@ class CreateProductsTable extends Migration
             $table->string('title')->nullable($value = false);
             $table->string('image_url');
             $table->longText('description')->nullable($value = false);
+            $table->double('price', 7, 2)->nullable($value = false);
             $table->boolean('on_sale')->nullable($value = false)->default($value = false);
             $table->timestamps();
         });

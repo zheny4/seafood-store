@@ -9,6 +9,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property string title
  * @property string image_url
  * @property string description
+ * @property double price
  * @property bool on_sale
  */
 class Product extends Model

@@ -17,6 +17,7 @@ return [
     'products.create' => 'Add product',
     'products.create.title' => 'Title',
     'products.create.image_url' => 'Image url',
+    'products.create.price' => 'Price',
     'products.create.on_sale' => 'On sale',
     'products.create.on_sale.title' => 'ON SALE',
     'products.create.category' => 'Category',
@@ -39,5 +40,6 @@ return [
     'products.category.fish' => 'Fish',
     'products.category.fish_products' => 'Fish products',
     'products.category.accessories' => 'Accessories',
+    'products.price' => 'Price',
     'products.description' => 'Description',
 ];

@@ -7,6 +7,7 @@
         {{ $product->on_sale == 1 ? __('silvex.products.create.on_sale.title') : '' }}
     </h1>
     <img src='{{ $product->image_url }}' height="100px">
+    <h3>@lang('silvex.products.price'): {{$product->price}}</h3>
     <h3>@lang('silvex.products.category'): @lang('silvex.products.category'.'.'.$product->category)</h3>
     <h4>@lang('silvex.products.description'): {{$product->description}}</h4>
     <a href="/products/{{$product->id}}/edit">@lang('silvex.products.edit')</a>

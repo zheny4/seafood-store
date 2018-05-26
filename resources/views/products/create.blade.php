@@ -21,6 +21,10 @@
             {{Form::text('image_url', '', ['placeholder' => __('silvex.products.create.image_url')])}}
         </div>
         <div>
+            {{Form::label('price', __('silvex.products.create.price'))}}
+            {{Form::number('price', 0.0, ['class' => 'form-control','step'=>'any'])}}
+        </div>
+        <div>
             {{Form::label('on_sale', __('silvex.products.create.on_sale'))}}
             {{Form::checkBox('on_sale', 1)}}
         </div>

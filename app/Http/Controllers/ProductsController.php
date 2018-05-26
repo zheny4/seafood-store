@@ -24,7 +24,7 @@ class ProductsController extends Controller
      */
     public function index()
     {
-        $products = Product::all();
+        $products = $this->getAllProductsWithCat();
         return view('products.index')->with('products', $products);
     }
 
@@ -49,6 +49,7 @@ class ProductsController extends Controller
         $this->validate($request, [
             'title' => 'required',
             'image_url' => 'required',
+            'price' => 'required',
             'description' => 'required'
         ]);
 
@@ -58,6 +59,7 @@ class ProductsController extends Controller
         $product->title = $request->input('title');
         $product->category = $cat->id;
         $product->image_url = $request->input('image_url');
+        $product->price = $request->input('price');
         $product->on_sale = $onSale;
         $product->description = $request->input('description');
         $product->save();
@@ -104,6 +106,8 @@ class ProductsController extends Controller
     {
         $this->validate($request, [
             'title' => 'required',
+            'image_url' => 'required',
+            'price' => 'required',
             'description' => 'required'
         ]);
 
@@ -113,6 +117,7 @@ class ProductsController extends Controller
         $product->title = $request->input('title');
         $product->category = $cat->id;
         $product->image_url = $request->input('image_url');
+        $product->price = $request->input('price');
         $product->on_sale = $onSale;
         $product->description = $request->input('description');
         $product->save();
@@ -153,15 +158,20 @@ class ProductsController extends Controller
         return $this->getCategorizedProducts("accessories");
     }
 
-    private function getCategorizedProducts($category)
+    private function getAllProductsWithCat()
     {
-        Log::info("cat1:".$category);
-        $products = Product::all()
+        return Product::all()
             ->map(function ($product) {
                 $cat = Category::where('id', $product->category)->get()[0];
                 $product->category = $cat->name;
                 return $product;
-            })
+            });
+    }
+
+    private function getCategorizedProducts($category)
+    {
+        Log::info("cat1:".$category);
+        $products = $this->getAllProductsWithCat()
             ->filter(function ($product) use ($category) {
                 $res = strcmp($category, $product->category);
                 return $res == 0;
