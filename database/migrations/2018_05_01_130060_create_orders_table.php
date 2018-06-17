@@ -21,8 +21,8 @@ class CreateOrdersTable extends Migration
             $table->unsignedInteger('payment_method_id');
             $table->foreign('payment_method_id')->references('id')->on('payment_methods');
             $table->boolean('payed')->nullable($value = false);
-//            TODO: PayPal data
-            $table->string('paypal');
+            $table->unsignedInteger('paypal_info_id');
+            $table->foreign('paypal_info_id')->references('id')->on('paypal_info');
         });
     }
 
