@@ -32,6 +32,7 @@ return [
     'products.edit.success' => 'Product updated.',
     'products.delete' => 'Delete',
     'products.delete.success' => 'Product deleted.',
+    'products.all' => 'All',
     'products.fish' => 'Fish',
     'products.fish_products' => 'Fish products',
     'products.accessories' => 'Accessories',
